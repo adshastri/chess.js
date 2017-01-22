@@ -1404,6 +1404,25 @@ var Chess = function(fen) {
 
       return result.join('');
     },
+    board: function() {
+      var output = [],
+          row    = [];
+
+      for (var i = SQUARES.a8; i <= SQUARES.h1; i++) {
+        if (board[i] == null) {
+          row.push(null)
+        } else {
+          row.push({type: board[i].type, color: board[i].color})
+        }
+        if ((i + 1) & 0x88) {
+          output.push(row);
+          row = []
+          i += 8;
+        }
+      }
+
+      return output;
+    },
 
     load_pgn: function(pgn, options) {
       // allow the user to specify the sloppy move parser to work around over
